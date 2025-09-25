@@ -21,6 +21,16 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllCategories(@RequestParam(required = false) String name) throws IOException {
+        if(name != null && !name.isEmpty()) {
+            CategoryDTO categoryDTO = categoryService.getCategoryByName(name);
+            return ResponseEntity.ok(categoryDTO);
+        }
+        List<CategoryDTO> categoryDTOs= categoryService.getAllCategories();
+        return ResponseEntity.ok(categoryDTOs);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long id) {
         CategoryDTO categoryDTO= categoryService.getCategoryById(id);
@@ -28,8 +38,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) throws Exception{
-
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) throws Exception {
         return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
     }
 }

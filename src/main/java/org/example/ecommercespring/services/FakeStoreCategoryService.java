@@ -28,4 +28,8 @@ public class FakeStoreCategoryService implements ICategoryService {
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         return null;
     }
+
+    public CategoryDTO getCategoryByName(String name) {
+        return null;
+    }
 }

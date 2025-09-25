@@ -5,7 +5,12 @@ import org.example.ecommercespring.entity.Category;
 import org.example.ecommercespring.expection.CategoryNotFoundException;
 import org.example.ecommercespring.mappers.CategoryMapper;
 import org.example.ecommercespring.repository.ICategoryRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
 public class CategoryService implements ICategoryService {
 
     private final ICategoryRepository categoryRepository;
@@ -21,8 +26,18 @@ public class CategoryService implements ICategoryService {
     }
 
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
-        System.out.println("createCategory");
         Category category = categoryRepository.save(CategoryMapper.toEntity(categoryDTO));
         return CategoryMapper.toDto(category);
     }
+
+    public CategoryDTO getCategoryByName(String name) {
+        return categoryRepository.findByName(name)
+                .map(CategoryMapper::toDto)
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + name + " not found"));
+    }
+
+    public List<CategoryDTO> getAllCategories() {
+        return categoryRepository.findAll().stream().map(CategoryMapper::toDto).toList();
+    }
+
 }

@@ -11,5 +11,7 @@ public interface ICategoryService {
 
     CategoryDTO getCategoryById(Long id);
     CategoryDTO createCategory(CategoryDTO categoryDTO);
-  //  List<CategoryDTO> getAllCategories() throws IOException;
+    List<CategoryDTO> getAllCategories() throws IOException;
+    CategoryDTO getCategoryByName(String name);
+
 }
