@@ -1,11 +1,12 @@
 package org.example.ecommercespring.controllers;
 
 import org.example.ecommercespring.dto.CategoryDTO;
+import org.example.ecommercespring.dto.ProductDTO;
 import org.example.ecommercespring.services.ICategoryService;
+import org.example.ecommercespring.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,14 +21,15 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
-    public List<CategoryDTO> getCategory() throws IOException {
-        return this.categoryService.getAllCategories();
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long id) {
+        CategoryDTO categoryDTO= categoryService.getCategoryById(id);
+        return ResponseEntity.ok(categoryDTO);
     }
 
-    @GetMapping("/count")
-    public int getCategoryCount(){
-        return 3;
-    }
+    @PostMapping
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) throws Exception{
 
+        return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
+    }
 }

@@ -17,8 +17,15 @@ public class FakeStoreCategoryService implements ICategoryService {
         this.categoryGateway = categoryGateway;
     }
 
-    @Override
     public List<CategoryDTO> getAllCategories() throws IOException {
         return categoryGateway.getAllCategories();
+    }
+
+    public CategoryDTO getCategoryById(Long id) {
+        return null;
+    }
+
+    public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+        return null;
     }
 }

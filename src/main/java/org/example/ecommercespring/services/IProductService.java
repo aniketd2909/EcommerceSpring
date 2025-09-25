@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IProductService {
 
     ProductDTO getProductById(Long id);
+    ProductDTO createProduct(ProductDTO productDTO);
 
 }
