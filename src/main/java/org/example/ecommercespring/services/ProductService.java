@@ -1,5 +1,6 @@
 package org.example.ecommercespring.services;
 
+import org.example.ecommercespring.dto.ProductCategoryDTO;
 import org.example.ecommercespring.dto.ProductDTO;
 import org.example.ecommercespring.entity.Category;
 import org.example.ecommercespring.entity.Product;
@@ -9,6 +10,9 @@ import org.example.ecommercespring.mappers.ProductMapper;
 import org.example.ecommercespring.repository.ICategoryRepository;
 import org.example.ecommercespring.repository.IProductRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -32,6 +36,16 @@ public class ProductService implements IProductService {
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found"));
         Product product = productRepository.save(ProductMapper.toEntity(productDTO,category));
         return ProductMapper.toDto(product);
+    }
+
+    public List<ProductDTO> findExpensiveProduct(double minPrice) {
+        return productRepository.findExpensiveProducts(minPrice).stream().map(ProductMapper::toDto).toList();
+    }
+
+    public ProductCategoryDTO getProductWithCategory(long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
+        return ProductMapper.toProductWithCategory(product);
     }
 
 }
