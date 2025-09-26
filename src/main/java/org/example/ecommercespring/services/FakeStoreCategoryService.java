@@ -1,6 +1,7 @@
 package org.example.ecommercespring.services;
 
 import org.example.ecommercespring.dto.CategoryDTO;
+import org.example.ecommercespring.dto.CategoryProductsDTO;
 import org.example.ecommercespring.gateway.ICategoryGateway;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,10 @@ public class FakeStoreCategoryService implements ICategoryService {
     }
 
     public CategoryDTO getCategoryByName(String name) {
+        return null;
+    }
+
+    public CategoryProductsDTO getAllProductsByCategoryId(Long categoryId) {
         return null;
     }
 }

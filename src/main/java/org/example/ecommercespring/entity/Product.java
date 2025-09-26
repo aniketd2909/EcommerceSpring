@@ -24,7 +24,12 @@ public class Product extends BaseEntity {
     private String brand;
     private boolean popular;
 
-    @ManyToOne
+    // We have Lazy and Eager option. Lazy will not fetch information of join, when we want to get the information of
+    // category in mapper then it runs the query
+    // ManyToOne -- Eager
+    // OneToOne -- Eager
+    // OneToMany -- Lazy
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id", nullable = false)
     private Category category;
 }
